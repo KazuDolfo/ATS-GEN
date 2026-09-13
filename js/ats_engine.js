@@ -167,13 +167,16 @@ if (typeof module !== 'undefined' && module.exports) {
             // Reemplaza ocurrencias de alias complejos en texto completo antes de tokenizar
             standardizeText: function(text) {
                 let clean = ATS_TextNormalizer.normalize(text);
-                // Mapear variaciones compuestas como "react.js", "power bi", etc.
+                const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                // Mapear variaciones compuestas como "react.js", "power bi", "c++", etc.
                 for (let alias of Object.keys(ALIAS_DICTIONARY)) {
                     if (clean.includes(alias)) {
                         const target = ALIAS_DICTIONARY[alias];
-                        // Reemplazo seguro mediante expresiones regulares
-                        const regex = new RegExp(`\\b${alias.replace('.', '\\.')}\\b`, 'g');
-                        clean = clean.replace(regex, target);
+                        // Reemplazo seguro mediante expresiones regulares escapadas
+                        const escaped = escapeRegExp(alias);
+                        const isSymbolTerm = /[\+\#]/.test(alias);
+                        const regex = isSymbolTerm ? new RegExp(`(^|\\s)${escaped}(\\s|$)`, 'g') : new RegExp(`\\b${escaped}\\b`, 'g');
+                        clean = clean.replace(regex, isSymbolTerm ? `$1${target}$2` : target);
                     }
                 }
                 return clean;
@@ -547,10 +550,11 @@ if (typeof module !== 'undefined' && module.exports) {
                     // Buscar alias definidos en dictionary.js
                     let foundSynonym = null;
                     if (typeof ALIAS_DICTIONARY !== 'undefined') {
+                        const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                         for (const [aliasKey, standardVal] of Object.entries(ALIAS_DICTIONARY)) {
                             if (standardVal === normMissing && aliasKey !== normMissing) {
                                 // Comprobar si el alias está presente en el CV original
-                                const aliasRegex = new RegExp(`(^|\\s)${aliasKey}(\\s|$)`, 'i');
+                                const aliasRegex = new RegExp(`(^|\\s)${escapeRegExp(aliasKey)}(\\s|$)`, 'i');
                                 if (aliasRegex.test(cvText.toLowerCase())) {
                                     foundSynonym = aliasKey;
                                     break;

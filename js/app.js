@@ -1170,8 +1170,9 @@
                         selectedFormula = `${formattedTitle} con experiencia en ${dynamicTools}. Diseñé y coordiné la ejecución de proyectos aplicando normativas técnicas y control de calidad, logrando optimizar procesos operativos y reducir desviaciones en un 15%.`;
                     } else {
                         // 2. Buscar en plantillas específicas de herramientas usando límites de palabra completa (\b)
+                        const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
                         for (const [key, value] of Object.entries(actionTemplates)) {
-                            const wordRegex = new RegExp(`(^|[^a-záéíóúñ])${key}([^a-záéíóúñ]|$)`, 'i');
+                            const wordRegex = new RegExp(`(^|[^a-záéíóúñ])${escapeRegExp(key)}([^a-záéíóúñ]|$)`, 'i');
                             if (wordRegex.test(cleanTitle) || wordRegex.test(cleanDesc)) {
                                 selectedFormula = value;
                                 break;
