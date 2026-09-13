@@ -607,7 +607,7 @@ if (typeof module !== 'undefined' && module.exports) {
                     requiredHard,
                     requiredSoft,
                     matchedHard, 
-                    matchedSoft: [...matchedSoft, ...softSkillsFromProfile.slice(0, 4)], 
+                    matchedSoft: deduplicateSkills(matchedSoft), 
                     missingHard, 
                     missingSoft, 
                     additionalHard, 
