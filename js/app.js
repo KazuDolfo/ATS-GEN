@@ -688,6 +688,14 @@
                     }
                 }
 
+                let languagesExtracted = "";
+                const langMatch = cvTextClean.match(/(?:idiomas|languages|language skills)[\s:]+([\s\S]+?)(?=\n[A-ZÁÉÍÓÚÑ\s]{4,}|\n\n|$)/i);
+                if (langMatch) {
+                    languagesExtracted = langMatch[1].trim();
+                } else {
+                    languagesExtracted = cvTextClean;
+                }
+
                 return {
                     name: lines[0] || "",
                     role: roleExtracted,
@@ -697,7 +705,7 @@
                     projects: "",
                     education: "",
                     certifications: "",
-                    languages: "",
+                    languages: languagesExtracted,
                     additional: "",
                     contact: contactExtracted
                 };

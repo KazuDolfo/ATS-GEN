@@ -1006,12 +1006,31 @@ if (typeof module !== 'undefined' && module.exports) {
                         if (patternIdx === 0) {
                             const rawLang = ATS_TextNormalizer.normalize(match[1]);
                             const lang = langMap[rawLang];
-                            const rawLevel = match[2] ? match[2].trim().split(/\s+/)[0] : "";
-                            const normLevel = ATS_TextNormalizer.normalize(rawLevel);
-                            const levelScore = LANGUAGE_LEVELS[normLevel] || 0;
+                            const fullLevelStr = (match[2] || "").trim().toLowerCase();
+                            let levelScore = 0;
+                            let detectedLevel = "no especificado";
+                            
+                            // Buscar niveles conocidos en la descripción del idioma (ej. "bilingual / c2 native")
+                            for (const [lvlKey, score] of Object.entries(LANGUAGE_LEVELS)) {
+                                if (lvlKey && lvlKey.length >= 2 && fullLevelStr.includes(lvlKey)) {
+                                    if (score > levelScore) {
+                                        levelScore = score;
+                                        detectedLevel = lvlKey;
+                                    }
+                                }
+                            }
+                            if (levelScore === 0) {
+                                const normLevel = ATS_TextNormalizer.normalize(fullLevelStr.split(/\s+/)[0] || "");
+                                levelScore = LANGUAGE_LEVELS[normLevel] || 0;
+                                detectedLevel = normLevel || "no especificado";
+                            }
                             if (lang) {
-                                if (!found.some(f => f.language === lang)) {
-                                    found.push({ language: lang, level: levelScore, raw: rawLevel || "no especificado" });
+                                const existing = found.find(f => f.language === lang);
+                                if (!existing) {
+                                    found.push({ language: lang, level: levelScore, raw: fullLevelStr || detectedLevel });
+                                } else if (levelScore > existing.level) {
+                                    existing.level = levelScore;
+                                    existing.raw = fullLevelStr || detectedLevel;
                                 }
                             }
                         } else if (patternIdx === 1) {
