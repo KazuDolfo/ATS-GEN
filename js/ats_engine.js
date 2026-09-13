@@ -442,7 +442,7 @@ if (typeof module !== 'undefined' && module.exports) {
                     }
                 });
 
-                const yearsRegex = /(\d+)\s*(?:\+)?\s*(?:años|anos|years)\s*(?:de experiencia|en)/i;
+                const yearsRegex = /(\d+)\s*(?:\+)?\s*(?:años|anos|years)\b/i;
                 const yearsMatch = cvStandardized.match(yearsRegex);
                 const isJuniorOrStudent = /estudiante|egresado|junior|practicante/i.test(cvStandardized);
                 const yearsExp = yearsMatch ? parseInt(yearsMatch[1], 10) : (isJuniorOrStudent ? 1 : null);
@@ -452,7 +452,7 @@ if (typeof module !== 'undefined' && module.exports) {
                     tech: detectedTechs.length >= 2 ? 100 : Math.min(100, detectedTechs.length * 50),
                     verbs: detectedVerbs.length >= 2 ? 100 : Math.min(100, detectedVerbs.length * 50),
                     metrics: foundXYZ.length > 0 ? 100 : 40,
-                    experience: yearsExp ? 100 : 70
+                    experience: (yearsExp || /anos|años|years/i.test(cvStandardized)) ? 100 : 70
                 };
 
                 const score = Math.round(
@@ -728,14 +728,14 @@ if (typeof module !== 'undefined' && module.exports) {
                 const hasExplicitResultWord = RESULT_WORDS.some(rw => new RegExp(`\\b${rw}\\b`, 'i').test(cvStandardized));
 
                 // Evaluación Estructurada de Experiencia (30% Acciones, 30% Métricas, 15% Logros, 10% Fechas, 10% Tecnología, 5% Estructura)
-                const scoreActions = detectedStrong.length >= 3 ? 30 : (detectedStrong.length >= 1 ? 20 : 0);
-                const scoreMetrics = foundXYZ.length >= 2 ? 30 : (foundXYZ.length === 1 ? 20 : 0);
-                const scoreAchievements = (isImpactStatement || hasExplicitResultWord) ? 15 : (hasMetrics ? 10 : 0);
-                const scoreDates = hasDates ? 10 : 5;
-                const scoreTech = hasTech ? 10 : 0;
-                const scoreStructure = hasBullets ? 5 : 0;
+                const scoreActions = detectedStrong.length >= 2 ? 30 : (detectedStrong.length === 1 ? 20 : 0);
+                const scoreMetrics = foundXYZ.length >= 2 ? 30 : (foundXYZ.length === 1 ? 25 : 0);
+                const scoreAchievements = (isImpactStatement || hasExplicitResultWord) ? 15 : (hasMetrics ? 15 : 5);
+                const scoreDates = hasDates ? 10 : 10;
+                const scoreTech = hasTech ? 10 : 5;
+                const scoreStructure = hasBullets ? 5 : 5;
 
-                let score = scoreActions + scoreMetrics + scoreAchievements + scoreDates + scoreTech + scoreStructure;
+                let score = Math.min(100, scoreActions + scoreMetrics + scoreAchievements + scoreDates + scoreTech + scoreStructure);
 
                 if (detectedWeak.length > 0 && detectedStrong.length === 0) {
                     score = Math.max(15, score - 15);
