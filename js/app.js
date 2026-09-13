@@ -688,6 +688,14 @@
                     }
                 }
 
+                let eduExtracted = "";
+                const eduMatch = cvTextClean.match(/(?:educacion|educación|education|formacion|formación|academic)[\s:]+([\s\S]+?)(?=\n[A-ZÁÉÍÓÚÑ\s]{4,}|\n\n|$)/i);
+                if (eduMatch) {
+                    eduExtracted = eduMatch[1].trim();
+                } else {
+                    eduExtracted = cvTextClean;
+                }
+
                 let languagesExtracted = "";
                 const langMatch = cvTextClean.match(/(?:idiomas|languages|language skills)[\s:]+([\s\S]+?)(?=\n[A-ZÁÉÍÓÚÑ\s]{4,}|\n\n|$)/i);
                 if (langMatch) {
@@ -703,7 +711,7 @@
                     skills: skillsExtracted,
                     experience: projectExtracted,
                     projects: "",
-                    education: "",
+                    education: eduExtracted,
                     certifications: "",
                     languages: languagesExtracted,
                     additional: "",
