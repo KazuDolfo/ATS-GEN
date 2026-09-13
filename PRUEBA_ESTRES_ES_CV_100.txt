@@ -1,0 +1,111 @@
+{
+  "personal_information": {
+    "full_name": "Ing. María del Carmen Núñez & Benavides",
+    "professional_title": "Líder de Automatización Industrial y Control de Procesos",
+    "email": "maria.nunez.devops+ingenieria@industria-andina.com.pe",
+    "phone": "+51 (01) 456-7890 / +51 912 345 678",
+    "location": "Arequipa / Lima, Perú (Híbrido)",
+    "linkedin": "https://pe.linkedin.com/in/maria-nunez-mecatronica_40",
+    "github": null
+  },
+  "professional_profile": {
+    "summary": "Ingeniera Mecatrónica Colegiada con más de 6 años liderando proyectos de automatización industrial y control de procesos en plantas industriales. Diseñé y coordiné sistemas SCADA, HMI, PLCs Siemens, TIA Portal, AutoCAD, MS Project y Excel bajo normativas técnicas y protocolos HSEQ. Reduje en 32% las paradas no programadas optimizando el consumo energético en $120,000 anuales."
+  },
+  "skills": {
+    "hard_skills": [
+      "Automatización industrial y control de procesos",
+      "Programación de PLCs y sistemas SCADA",
+      "Sistemas HMI y control distribuido",
+      "Diseño de planos eléctricos en AutoCAD",
+      "Telemetría industrial y protocolos IoT",
+      "Mantenimiento predictivo y RCM",
+      "Gestión de proyectos de ingeniería",
+      "Normativas técnicas y de seguridad industrial",
+      "Normativas HSEQ y estándares ISO 9001"
+    ],
+    "technologies_and_tools": [
+      "PLCs",
+      "SCADA",
+      "HMI",
+      "TIA Portal",
+      "Siemens",
+      "Allen-Bradley",
+      "AutoCAD",
+      "SQL",
+      "SQL Server",
+      "Power BI",
+      "MS Project",
+      "Microsoft Excel",
+      "Modbus",
+      "MQTT",
+      "Python",
+      "C++"
+    ]
+  },
+  "experience": [
+    {
+      "company": "Corporación Minera & Industrial del Sur S.A.A.",
+      "location": "Arequipa, Perú",
+      "position": "Líder de Automatización y Control de Procesos",
+      "start_date": "Febrero 2021",
+      "end_date": "Presente",
+      "responsibilities": [
+        "Diseñé e implementé la arquitectura SCADA y pantallas HMI en TIA Portal para el control automatizado de más de 450 instrumentos de campo en planta concentradora.",
+        "Programé rutinas de control PID en PLCs Siemens S7-1500 y Allen-Bradley ControlLogix, reduciendo las fallas operativas en un 28% durante 36 meses continuos.",
+        "Coordiné con las áreas de Operaciones, Mantenimiento y HSEQ la ejecución de protocolos bajo normativas técnicas IEC 61131-3 e ISO 9001.",
+        "Automaticé la extracción de métricas de producción hacia Power BI y SQL Server, ahorrando 12 horas semanales en la generación de reportes ejecutivos."
+      ]
+    },
+    {
+      "company": "Soluciones Electromecánicas Andinas SAC",
+      "location": "Lima, Perú",
+      "position": "Ingeniera Junior de Proyectos y Comisionamiento",
+      "start_date": "Enero 2018",
+      "end_date": "Diciembre 2020",
+      "responsibilities": [
+        "Elaboré planos eléctricos y de instrumentación en AutoCAD para 14 proyectos de ingeniería industrial, cumpliendo el 100% de los plazos contractuales.",
+        "Ejecuté pruebas de lazo y comisionamiento de redes industriales Modbus TCP y Profinet, verificando la calibración de más de 120 sensores.",
+        "Gestioné cronogramas y presupuestos de obra mediante MS Project y Excel, evitando sobrecostos en un 18% respecto al presupuesto base."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Modernización de Telemetría y Monitoreo Remoto IoT",
+      "location": "Moquegua, Perú",
+      "role": "Líder de Proyecto",
+      "start_date": "Marzo 2023",
+      "end_date": "Noviembre 2023",
+      "description": [
+        "Desarrollé pasarelas IoT con Python y protocolo MQTT para la transmisión de datos en tiempo real de 8 plantas de bombeo a la nube, logrando 99.8% de disponibilidad del enlace."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Universidad Nacional de San Agustín (UNSA)",
+      "location": "Arequipa, Perú",
+      "degree": "Titulada y Colegiada en Ingeniería Mecatrónica",
+      "start_date": "Marzo 2013",
+      "end_date": "Diciembre 2017"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "Certificación Siemens Certified Automation Engineer (TIA Portal Pro)"
+    },
+    {
+      "name": "Project Management Professional (PMP) Training - 35 PDUs"
+    }
+  ],
+  "languages": [
+    {
+      "language": "Español",
+      "level": "Nativo"
+    },
+    {
+      "language": "Inglés",
+      "level": "Intermedio Avanzado (B2 / Técnico Fluido)"
+    }
+  ]
+}

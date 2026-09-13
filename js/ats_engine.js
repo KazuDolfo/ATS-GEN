@@ -214,8 +214,8 @@ if (typeof module !== 'undefined' && module.exports) {
                     let line = lines[i];
                     const cleanLower = line.toLowerCase();
 
-                    // Si la línea contiene datos de contacto o encabezados de sección pegados, recortar antes de ellos
-                    if (cleanLower.includes('@') || cleanLower.includes('github') || cleanLower.includes('linkedin') || /^\+?\d/.test(line.trim())) {
+                    // Si la línea contiene datos de contacto, fechas, años de exp o encabezados de sección pegados, ignorar
+                    if (cleanLower.includes('@') || cleanLower.includes('github') || cleanLower.includes('linkedin') || /^\+?\d/.test(line.trim()) || /\b\d+\s+(?:anos|años|years)\b/i.test(cleanLower)) {
                         continue;
                     }
                     if (sectionHeaders.test(cleanLower.split(/\s+/)[0])) {
@@ -226,7 +226,7 @@ if (typeof module !== 'undefined' && module.exports) {
                     line = line.split(/(?:\+|iradolfo|github|linkedin|resumen|experiencia|habilidades)/i)[0].trim();
                     line = line.replace(/[|\s]+$/, '').trim();
 
-                    if (!line || line.length < 3) continue;
+                    if (!line || line.length < 3 || line.length > 90) continue;
 
                     // 1. Detectar títulos y cargos multi-palabra o con barras
                     for (let role of Object.keys(TITLE_EQUIVALENCE)) {
