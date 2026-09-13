@@ -1174,8 +1174,9 @@
                 if (!isInformationalOnly) {
                     // 1. Si la tarjeta es de Resumen Profesional, generar fórmula de Resumen personalizada y ejecutiva
                     if (cleanTitle.includes('resumen') || (cleanTitle.includes('optimización') && cleanDesc.includes('resumen'))) {
-                        const formattedTitle = dynamicJobTitle ? (dynamicJobTitle.charAt(0).toUpperCase() + dynamicJobTitle.slice(1).toLowerCase()) : 'Profesional';
-                        selectedFormula = `${formattedTitle} con experiencia en ${dynamicTools}. Diseñé y coordiné la ejecución de proyectos aplicando normativas técnicas y control de calidad, logrando optimizar procesos operativos y reducir desviaciones en un 15%.`;
+                        let cleanRawTitle = dynamicJobTitle ? dynamicJobTitle.replace(/^(vacancy|cargo|puesto|vacante|posicion|role)\s*:\s*/i, '').trim() : 'Profesional';
+                        const formattedTitle = cleanRawTitle ? (cleanRawTitle.charAt(0).toUpperCase() + cleanRawTitle.slice(1).toLowerCase()) : 'Profesional';
+                        selectedFormula = `${formattedTitle} con sólida trayectoria técnica. Lideré e implementé arquitecturas escalables aplicando ${dynamicTools}, optimizando procesos clave y reduciendo tiempos de respuesta en un 20%.`;
                     } else {
                         // 2. Buscar en plantillas específicas de herramientas usando límites de palabra completa (\b)
                         const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
