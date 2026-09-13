@@ -1368,12 +1368,14 @@ if (typeof module !== 'undefined' && module.exports) {
                 const keywordGapResult = ATS_KeywordGapAnalyzer.analyze(cvText, jobText, hardSkillsTaxonomy, softSkillsTaxonomy, stopwords);
 
                 // 3. Score Engine (Cálculo de puntajes por categoría utilizando reglas cargadas en rules.js)
+                const hasCerts = !!(cvData.certifications && cvData.certifications.trim().length > 0) || /certificacion|certificación|certificate|credential|diploma/i.test(cvText);
                 const scores = {
                     skills: typeof skillsResult.score === 'number' && !isNaN(skillsResult.score) ? skillsResult.score : 40,
                     experience: typeof experienceResult.score === 'number' && !isNaN(experienceResult.score) ? experienceResult.score : 40,
                     summary: typeof summaryResult.score === 'number' && !isNaN(summaryResult.score) ? summaryResult.score : 40,
                     structure: typeof structureResult.score === 'number' && !isNaN(structureResult.score) ? structureResult.score : 40,
-                    title: (titleResult && typeof titleResult.confidenceScore === 'number') ? titleResult.confidenceScore : 70
+                    title: (titleResult && typeof titleResult.confidenceScore === 'number') ? titleResult.confidenceScore : 70,
+                    certifications: hasCerts ? 100 : 80
                 };
 
                 // Ponderación basada en reglas adaptativas por dominio
@@ -1399,7 +1401,7 @@ if (typeof module !== 'undefined' && module.exports) {
                      (scores.experience * (w.experience || 0)) +
                      (scores.summary * (w.summary || 0)) +
                      (scores.structure * (w.structure || 0)) +
-                     ((scores.certifications || 80) * (w.certifications || 0))) / (totalWeight || 100)
+                     (scores.certifications * (w.certifications || 0))) / (totalWeight || 100)
                 );
 
                 // Normalización de límites
