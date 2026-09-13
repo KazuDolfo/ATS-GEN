@@ -528,18 +528,16 @@ if (typeof module !== 'undefined' && module.exports) {
                     return !uniqueMatchedSoft.some(m => ATS_TextNormalizer.normalize(m) === normS);
                 }));
 
-                // Soft skills adicionales: escanear el texto del perfil/resumen directamente
-                // para detectar soft skills contextuales aunque no estén en la sección de skills
-                const softSkillsFromProfile = [];
-                const profileText = typeof cvText === 'string' ? cvText : '';
-                const profileStd = ATS_Tokenizer.standardizeText(profileText);
+                // Soft skills: escanear todo el texto del CV para detectar competencias conductuales en contexto
+                const softSkillsFoundInCV = [];
                 softSkillsTaxonomy.forEach(skill => {
-                    if (!matchedSoft.includes(skill) && !requiredSoft.includes(skill)) {
-                        if (ATS_MatchingEngine.comparePhrase(profileStd, skill).match) {
-                            softSkillsFromProfile.push(skill);
+                    if (ATS_MatchingEngine.comparePhrase(cvStandardized, skill).match) {
+                        if (!matchedSoft.includes(skill) && !softSkillsFoundInCV.includes(skill)) {
+                            softSkillsFoundInCV.push(skill);
                         }
                     }
                 });
+                matchedSoft.push(...softSkillsFoundInCV);
                 // ── NUEVAS MEJORAS DE SKILLS (MEJORA 2: Sugerir sinónimos/alias válidos) ──
                 const synonymSuggestions = [];
                 const additionalHard = [];

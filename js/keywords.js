@@ -341,7 +341,9 @@ const DOMAIN_TAXONOMIES = {
         ],
         soft: [
             'pensamiento sistemico', 'gestion de proyectos tecnicos', 'trabajo de campo',
-            'comunicacion tecnica', 'gestion de contratistas', 'cumplimiento normativo'
+            'comunicacion tecnica', 'gestion de contratistas', 'cumplimiento normativo',
+            'liderazgo', 'trabajo en equipo', 'resolucion de problemas', 'gestion de proyectos',
+            'proactividad', 'atencion al detalle', 'orientacion a resultados', 'planificacion'
         ],
         roleLevels: ['ingeniero junior', 'ingeniero', 'ingeniero senior', 'jefe de proyecto', 'jefe de area', 'gerente de ingenieria', 'director tecnico', 'vp of engineering']
     },
