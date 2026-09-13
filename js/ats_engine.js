@@ -1577,9 +1577,11 @@ if (typeof module !== 'undefined' && module.exports) {
                 }
             });
 
-            // Detección de Desalineación de Jerarquía / Seniority Mismatch
-            const jobIsSenior = /senior|sénior|lead|principal|arquitecto|3\+\s*años|5\+\s*años/i.test(cleanJob);
-            const cvIsJunior = /junior|júnior|practicante|estudiante|9\.?º?\s*ciclo|noveno ciclo|iniciacion/i.test(cleanCV);
+            // Detección de Desalineación de Jerarquía / Seniority Mismatch (Solo si la vacante es explícitamente Senior y no Jr/Trainee)
+            const jobExplicitJunior = /\b(junior|jr|júnior|practicante|trainee|pasante|estudiante|asistente|auxiliar|entry[\s\-_]?level)\b/i.test(cleanJob);
+            const jobIsSenior = !jobExplicitJunior && /\b(senior|sr|sénior|lead|principal|arquitecto|architect|3\+\s*años|4\+\s*años|5\+\s*años)\b/i.test(cleanJob);
+            const cvIsJunior = /\b(junior|jr|júnior|practicante|estudiante|8\.?º?\s*ciclo|9\.?º?\s*ciclo|octavo ciclo|noveno ciclo|iniciacion|trainee)\b/i.test(cleanCV);
+            
             if (jobIsSenior && cvIsJunior) {
                 reasons.push(`Desalineación de Seniority (Riesgo Alto): La vacante exige un perfil <strong>SENIOR / AVANZADO (3+ años)</strong>, pero en tu CV figura un perfil <strong>JUNIOR / ESTUDIANTE</strong>.`);
             }
